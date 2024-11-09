@@ -39,6 +39,7 @@ body {
   .button {
     font-size: 1em;
     font-family: 'Lora', serif;
+    width: 300px;
     padding: 0.7em 2em;
     border: none;
     border-radius: 20px;
