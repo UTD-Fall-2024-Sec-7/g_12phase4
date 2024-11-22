@@ -1,26 +1,43 @@
 import http.client
+import json
 
 class transactionClass:
-    
     def __init__(self):
-        # These inputs should be inside the method to prevent them from executing on class import
-        self.Ticker = input("Enter the ticker (leave blank if not needed): ")
-        self.representative = input("Enter the representative's name (leave blank if not needed): ")
-        self.representative = self.representative.replace(" ", "+")
-        
         self.conn = http.client.HTTPSConnection("api.quiverquant.com")
         self.headers = {
             'Accept': "application/json",
             'Authorization': "Bearer 8811e9c3ec80c57c79b915490ff666da60e3b888"
         }
-        self.interval = 600
-        self.PageSize = 10
 
-        self.conn.request("GET", f"/beta/bulk/congresstrading?page=10&page_size=10&ticker={self.Ticker}&representative={self.representative}", headers=self.headers)
+    def get_recent_trades(self, congressman_name):
+        """
+        Fetches the 5 most recent trades for a given congressman.
+        """
+        print(congressman_name)
+        representative = congressman_name.replace(" ", "+")
+        self.conn.request("GET", f"/beta/bulk/congresstrading?page=10&page_size=10&representative={representative}", headers=self.headers)
 
-        self.res = self.conn.getresponse()
-        self.data = self.res.read()
+        
+        res = self.conn.getresponse()
+        data = res.read()
+        
+        print(data.decode("utf-8"))
+        
 
-        print(self.data.decode("utf-8"))
+    def interactive_query(self):
+        """
+        Allows the user to query the API interactively for trades by entering a ticker and congressman name.
+        """
+        print("\n--- Interactive Query ---")
+        ticker = input("Enter the ticker (leave blank if not needed): ")
+        representative = input("Enter the representative's name (leave blank if not needed): ")
+        representative = representative.replace(" ", "+")
 
-# This ensures that input() is not called until an instance of the class is created
+        # Build the request
+        self.conn.request("GET", f"/beta/bulk/congresstrading?page=10&page_size=10&representative={representative}&ticker={ticker}", headers=self.headers)
+
+        res = self.conn.getresponse()
+        data = res.read()
+
+        print("\n--- Query Results ---")
+        print(data.decode("utf-8"))
