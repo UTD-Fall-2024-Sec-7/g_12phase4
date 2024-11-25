@@ -1,9 +1,12 @@
 from datastorage import datastorage
 from transactionClass import transactionClass
+from newsHandler import newsHandler  # Import newsHandler
 
 def main():
     storage = datastorage()
     transaction_service = transactionClass()
+    api_key = "ct1nmb9r01qoprggpfk0ct1nmb9r01qoprggpfkg"  # Replace with a valid API key
+    news_service = newsHandler(api_key)
 
     while True:
         print("\n--- Welcome to the Login System ---")
@@ -32,8 +35,9 @@ def main():
                     print("2. View followed congressmen")
                     print("3. List all congressmen")
                     print("4. Interactive Query")
-                    print("5. Logout")
-                    user_choice = input("Choose an option (1/2/3/4/5): ")
+                    print("5. View News")
+                    print("6. Logout")
+                    user_choice = input("Choose an option (1/2/3/4/5/6): ")
 
                     if user_choice == '1':
                         all_congressmen = storage.list_all_congressmen()
@@ -47,7 +51,6 @@ def main():
                                 # Fetch recent trades and display them
                                 print(f"\nRecent trades for {congressman}:")
                                 transaction_service.get_recent_trades(congressman)
-                                
                             else:
                                 print("Failed to follow congressman.")
                         else:
@@ -71,10 +74,18 @@ def main():
                             print(name)
 
                     elif user_choice == '4':
-                        # Call the interactive query from transactionClass
                         transaction_service.interactive_query()
 
                     elif user_choice == '5':
+                        category = input("Enter news category (e.g., general, stocks): ")
+                        news = news_service.getNews(category)
+                        if news:
+                            print("\nRecent News:")
+                            news_service.show(news)
+                        else:
+                            print("No news available for this category.")
+
+                    elif user_choice == '6':
                         print("Logging out. Goodbye!")
                         break
 
@@ -92,3 +103,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
