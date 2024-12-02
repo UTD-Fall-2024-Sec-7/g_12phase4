@@ -1,11 +1,11 @@
 from datastorage import datastorage
 from transactionClass import transactionClass
-from newsHandler import newsHandler  # Import newsHandler
+from newsHandler import newsHandler  
 
 def main():
     storage = datastorage()
     transaction_service = transactionClass()
-    api_key = "ct1nmb9r01qoprggpfk0ct1nmb9r01qoprggpfkg"  # Replace with a valid API key
+    api_key = "ct1nmb9r01qoprggpfk0ct1nmb9r01qoprggpfkg" 
     news_service = newsHandler(api_key)
 
     while True:
@@ -33,11 +33,10 @@ def main():
                     print("\n--- User Dashboard ---")
                     print("1. Follow a congressman")
                     print("2. View followed congressmen")
-                    print("3. List all congressmen")
-                    print("4. Interactive Query")
-                    print("5. View News")
-                    print("6. Logout")
-                    user_choice = input("Choose an option (1/2/3/4/5/6): ")
+                    print("3. Interactive Query")
+                    print("4. View News")
+                    print("5. Logout")
+                    user_choice = input("Choose an option (1/2/3/4/5): ")
 
                     if user_choice == '1':
                         all_congressmen = storage.list_all_congressmen()
@@ -68,15 +67,9 @@ def main():
                             print("\nYou are not following any congressmen.")
 
                     elif user_choice == '3':
-                        all_congressmen = storage.list_all_congressmen()
-                        print("\nAll Congressmen:")
-                        for name in all_congressmen:
-                            print(name)
-
-                    elif user_choice == '4':
                         transaction_service.interactive_query()
 
-                    elif user_choice == '5':
+                    elif user_choice == '4':
                         category = input("Enter news category (e.g., general, stocks): ")
                         news = news_service.getNews(category)
                         if news:
@@ -85,7 +78,7 @@ def main():
                         else:
                             print("No news available for this category.")
 
-                    elif user_choice == '6':
+                    elif user_choice == '5':
                         print("Logging out. Goodbye!")
                         break
 
