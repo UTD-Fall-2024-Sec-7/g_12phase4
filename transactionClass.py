@@ -15,7 +15,7 @@ class transactionClass:
         """
         print(congressman_name)
         representative = congressman_name.replace(" ", "+")
-        self.conn.request("GET", f"/beta/bulk/congresstrading?page=10&page_size=10&representative={representative}", headers=self.headers)
+        self.conn.request("GET", f"/beta/bulk/congresstrading?page=1&page_size=10&representative={representative}", headers=self.headers)
 
         
         res = self.conn.getresponse()
@@ -34,7 +34,7 @@ class transactionClass:
         representative = representative.replace(" ", "+")
 
         # Build the request
-        self.conn.request("GET", f"/beta/bulk/congresstrading?page=10&page_size=10&representative={representative}&ticker={ticker}", headers=self.headers)
+        self.conn.request("GET", f"/beta/bulk/congresstrading?page=1&page_size=10&representative={representative}&ticker={ticker}", headers=self.headers)
 
         res = self.conn.getresponse()
         data = res.read()
