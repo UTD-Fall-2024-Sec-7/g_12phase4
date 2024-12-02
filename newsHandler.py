@@ -38,13 +38,13 @@ class newsHandler:  # Class to handle news data
         return None
 
     def show(self, n):
-        print("\nAll news") # Print the news data
+        print("\nAll news")  # Print the news data
         for a in n[:5]:
             print("ID:", a['id'], "|", a['headline'], "|", a['source'])
             print("Link:", a['url'])
 
     def debugAll(self):
-        print("\nDebugging all news") 
+        print("\nDebugging all news")
         for c, n in self.data.items():
             print(c.upper())
             for a in n:
@@ -83,15 +83,17 @@ class app:
             print("No news for ID:", id)
 
 
-k = "ct1nmb9r01qoprggpfk0ct1nmb9r01qoprggpfkg"
-apifch = app(k)
+# Remove or comment out the following lines to prevent automatic execution:
+# k = "ct1nmb9r01qoprggpfk0ct1nmb9r01qoprggpfkg"
+# apifch = app(k)
 
-print("\nFiltered General News")
-apifch.fetch("general")
+# print("\nFiltered General News")
+# apifch.fetch("general")
 
-print("\nFiltered Stocks News")
-apifch.fetch("stocks")
+# print("\nFiltered Stocks News")
+# apifch.fetch("stocks")
 
-print("\nFetched News")
-apifch.byId(3)
-apifch.byId(50)
+# print("\nFetched News")
+# apifch.byId(3)
+# apifch.byId(50)
+
